@@ -1,5 +1,5 @@
 /*!   This is example01.500beams.data.split source file for
-!       https://github.com/LiuGangKingston/C++-CSV-TIKZ.git
+!       https://github.com/LiuGangKingston/CPP-CSV-TIKZ.git
 !            Version 1.0
 !   free for non-commercial use.
 !   Please send us emails for any problems/suggestions/comments.
