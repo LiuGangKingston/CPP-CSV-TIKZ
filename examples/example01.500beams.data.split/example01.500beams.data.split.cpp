@@ -108,24 +108,25 @@ void MyComputing() {
        angleced=anglece-anglede;
        outangle=asin(sin(angleced*Deg2Rad) * refractiveindex)*Rad2Deg;
 
-/*   The next function OutputVariablesToLine has three groups of arguments.
-          The first is a single integer, which is the LineNumber.
-              It must be from "startingline" to "totallines", as used when the object was created.
-          The second is a const string of the data types of all later arguments.
-              d: integer
-              c: single char
-              f: float, double
-              s: std::string
-              Otherwise, the routine will stop.
-              https://en.cppreference.com/w/cpp/language/variadic_arguments
-          All the rest arguments will be outputted to the file based on the LineNumber.
-          A comma will be inserted between any two. The new line "endl" will be outputted at the end.
-          For example, it may be called as
-          anobject.OutputVariablesToLine(LineNumber,"ddffs",totallines,i,refractiveindex,bigradius,PickTikZColor(i));
-          Alternatively, please try "*(CppCSVTikZFileGroup::OutputLine(int LineNumber))<< aVariable <<','
-                                       << anotherVariable <<',' ... << anotherVariable << endl; "
+/*     The next function OutputVariablesToLine has three groups of arguments.
+       The first is a single integer, which is the LineNumber.
+           It must be from "startingline" to "totallines", as used when the object was created.
+       The second is a const string of indicators for the data types of all later arguments.
+           d: integer
+           c: single char
+           f: float, double
+           s: std::string
+           Otherwise, the routine will stop.
+           Related webpage: https://en.cppreference.com/w/cpp/language/variadic_arguments
+       All the rest arguments will be outputted to the file based on the LineNumber, 
+       where a comma will be inserted between any two and the end-of-line "endl" will be 
+       added at the end.
+           For example, it may be called as
+           anobject.OutputVariablesToLine(LineNumber,"ddffs",totallines,i,refractiveindex,bigradius,PickTikZColor(i));
+           Alternatively, please try "*(CppCSVTikZFileGroup::OutputLine(int LineNumber))<< aVariable <<','
+                                        << anotherVariable <<',' ... << anotherVariable << endl; "
        */
-        bigfile.OutputVariablesToLine(i,"ddfffffffffffffffffffs",
+       bigfile.OutputVariablesToLine(i,"ddfffffffffffffffffffs",
                                      totallines,i,refractiveindex,bigradius,a,b,z,anglez,c,anglea,
                                      incidentangle,refractiveangle,anglede,dx,ee,et,ex,ey,anglece,
                                      angleced,outangle, PickTikZColor(i));
