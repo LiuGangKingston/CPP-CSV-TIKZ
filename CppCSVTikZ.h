@@ -24,6 +24,7 @@ void Initialize();
 void Finalize();
 
 
+#include <cstdarg>
 #include <fstream>
 #include <iostream>
 using namespace std;
@@ -142,6 +143,7 @@ class CppCSVTikZFileGroup
     void   SetupAndOpen(std::string FileNamePrefix, int StartingLine, int EndingLine, int LinesInEachFile);
     void   FillFirstLine(std::string FirstLineWords);
     ofstream * OutputLine(int LineNumber);
+    void   OutputVariablesToLine(int LineNumber, const char* fmt...);
     void   GroupClose();
     void   Finalize();
     int    GetTotalLinesInEachFile()          { return TotalLinesInEachFile;};
@@ -306,6 +308,75 @@ ofstream * CppCSVTikZFileGroup::OutputLine(int LineNumber)
 }
 
 
+/*   The next function OutputVariablesToLine has three groups of arguments.
+          The first is a single integer, which is the LineNumber.
+          The second is a const string of the data types of all later arguments.
+              d: integer
+              c: single char
+              f: float, double
+              s: std::string
+              Otherwise, the routine will stop.
+              https://en.cppreference.com/w/cpp/language/variadic_arguments
+          All the rest arguments will be outputted to the file based on the LineNumber.
+          A comma will be inserted between any two. The new line "endl" will be outputted at the end.
+          For example, it may be called as
+          anobject.OutputVariablesToLine(LineNumber,"ddffs",
+                                         totallines,i,refractiveindex,bigradius,PickTikZColor(i));
+       */
+void CppCSVTikZFileGroup::OutputVariablesToLine(int LineNumber, const char* fmt...)
+{    int i,j,k;
+     va_list args;
+     va_start(args, fmt);
+     i = LineNumber - StartingLineNumber;
+     k = abs(i);
+     if( ((i*LineNumberDirection) < 0) || (k>AbsoluteLineRange) )  {
+        cout <<"In the CppCSVTikZFileGroup::OutputVariablesToLine(int LineNumber)" <<endl;
+        cout <<"The LineNumber " << LineNumber << " is not in the range " <<endl;
+        cout <<"from " << StartingLineNumber << " to " << EndingLineNumber << " ." <<endl;
+        cout <<"Then stopped. " <<endl;
+        Finalize();
+        exit(0);
+     }
+     j = k / TotalLinesInEachFile;
+
+     k=0;
+     while (*fmt != '\0') {
+        if (k > 0) FileGroupInClass[j] << ',';
+        if (*fmt == 'd') {
+            int i = va_arg(args, int);
+            FileGroupInClass[j] << i ;
+        } else if (*fmt == 'c') {
+            // note automatic conversion to integral type
+            int c = va_arg(args, int);
+            FileGroupInClass[j] << static_cast<char>(c) ;
+        } else if (*fmt == 'f') {
+            double d = va_arg(args, double);
+            FileGroupInClass[j] << d ;
+        } else if (*fmt == 's') {
+            std::string s = va_arg(args, std::string);
+            FileGroupInClass[j] << s ;
+        } else {
+            cout << "In the CppCSVTikZFileGroup::OutputVariablesToLine(int LineNumber, ...)" <<    endl;
+            cout << "Only int, (single) char, double, and std::string variables are supported." << endl;
+            cout << "Since others are used, stopped." << endl;
+            cout << "Since others are used, stopped." << endl;
+            cout << "Since others are used, stopped." << endl;
+            cout << "An alternative: " << endl;
+            cout << "*(CppCSVTikZFileGroup::OutputLine(int LineNumber))<< aVariable <<',' " << endl;
+            cout << "            << anotherVariable <<',' ... << anotherVariable << endl; " << endl;
+            cout << "may work. " << endl;
+            Finalize();
+            exit(0);
+        }
+        ++k;
+        ++fmt;
+     }
+
+     FileGroupInClass[j] << endl;
+     va_end(args);
+}
+
+
 void CppCSVTikZFileGroupInitialize()
 {
      HeadOfCppCSVTikZFilesAndNamePrefixes = (struct CppCSVTikZFilesAndNamePrefixes*)
@@ -323,7 +394,6 @@ void CppCSVTikZFileGroupInitialize()
 
 void CppCSVTikZFileGroupFinalize()
 {    int i, j;
-
      CppCSVTikZFilesAndNamePrefixTemp1= HeadOfCppCSVTikZFilesAndNamePrefixes;
      CppCSVTikZFilesAndNamePrefixTemp2 = NULL;
      for(i=0; i<=TotalCppCSVTikZFilesAndNamePrefixes; i++) {
