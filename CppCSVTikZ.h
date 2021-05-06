@@ -308,18 +308,18 @@ ofstream * CppCSVTikZFileGroup::OutputLine(int LineNumber)
 }
 
 
-/*   The next function OutputVariablesToLine has three groups of arguments.
+    /*    The next function OutputVariablesToLine has three groups of arguments.
           The first is a single integer, which is the LineNumber.
-          The second is a const string of the data types of all later arguments.
+          The second is a const string of indicators for the data types of all later arguments.
               d: integer
               c: single char
               f: float, double
               s: std::string
               Otherwise, the routine will stop.
-              https://en.cppreference.com/w/cpp/language/variadic_arguments
-          All the rest arguments will be outputted to the file based on the LineNumber.
-          A comma will be inserted between any two. The new line "endl" will be outputted at the end.
-          For example, it may be called as
+              Related webpage: https://en.cppreference.com/w/cpp/language/variadic_arguments
+          All the rest arguments will be outputted to the file based on the LineNumber, 
+          where a comma will be inserted between any two and the end-of-line "endl" will be 
+          added at the end. For example, it may be called as
           anobject.OutputVariablesToLine(LineNumber,"ddffs",
                                          totallines,i,refractiveindex,bigradius,PickTikZColor(i));
        */
@@ -364,7 +364,7 @@ void CppCSVTikZFileGroup::OutputVariablesToLine(int LineNumber, const char* fmt.
             cout << "An alternative: " << endl;
             cout << "*(CppCSVTikZFileGroup::OutputLine(int LineNumber))<< aVariable <<',' " << endl;
             cout << "            << anotherVariable <<',' ... << anotherVariable << endl; " << endl;
-            cout << "may work. " << endl;
+            cout << "should work. " << endl;
             Finalize();
             exit(0);
         }
