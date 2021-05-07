@@ -121,9 +121,11 @@ void MyComputing() {
        All the rest arguments will be outputted to the file based on the LineNumber, 
        where a comma will be inserted between any two and the end-of-line "endl" will be 
        added at the end.
-           For example, it may be called as
-           anobject.OutputVariablesToLine(LineNumber,"ddffs",totallines,i,refractiveindex,bigradius,PickTikZColor(i));
-           Alternatively, please try "*(CppCSVTikZFileGroup::OutputLine(int LineNumber))<< aVariable <<','
+       HOWEVER, TESTS SHOW THAT ALL std::string TYPE VARIABLES MUST BE THE LAST ONES.
+
+       For example, it may be called as
+       anobject.OutputVariablesToLine(LineNumber,"ddffs",totallines,i,refractiveindex,bigradius,PickTikZColor(i));
+       Alternatively, please try "*(CppCSVTikZFileGroup::OutputLine(int LineNumber))<< aVariable <<','
                                         << anotherVariable <<',' ... << anotherVariable << endl; "
        */
        bigfile.OutputVariablesToLine(i,"ddfffffffffffffffffffs",
