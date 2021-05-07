@@ -319,7 +319,9 @@ ofstream * CppCSVTikZFileGroup::OutputLine(int LineNumber)
               Related webpage: https://en.cppreference.com/w/cpp/language/variadic_arguments
           All the rest arguments will be outputted to the file based on the LineNumber, 
           where a comma will be inserted between any two and the end-of-line "endl" will be 
-          added at the end. For example, it may be called as
+          added at the end. 
+          HOWEVER, TESTS SHOW THAT ALL std::string TYPE VARIABLES MUST BE THE LAST ONES.
+          For example, it may be called as
           anobject.OutputVariablesToLine(LineNumber,"ddffs",
                                          totallines,i,refractiveindex,bigradius,PickTikZColor(i));
        */
