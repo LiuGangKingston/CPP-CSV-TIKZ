@@ -91,6 +91,7 @@ void MyComputing() {
       //All the rest arguments will be outputted to the file based on the LineNumber, 
       //where a comma will be inserted between any two and the end-of-line "endl" will be 
       //added at the end.
+      //HOWEVER, TESTS SHOW THAT ALL std::string TYPE VARIABLES MUST BE THE LAST ONES.
    
       bigfile.OutputVariablesToLine(i,"ddfffffffffffffffffffs",
                                     totallines,i,refractiveindex,bigradius,a,b,z,anglez,c,anglea,
