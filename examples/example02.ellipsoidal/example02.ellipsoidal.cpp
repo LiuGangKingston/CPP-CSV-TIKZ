@@ -112,9 +112,37 @@ void MyComputing() {
        normalangle = tangentangle - 90.0e0;
        incidentangle = normalangle - startingangle;
        reflectangle = tangentangle + 90.0e0 + incidentangle;
+
+/*     The next function OutputVariablesToLine has three groups of arguments.
+       The first is a single integer, which is the LineNumber.
+           It must be from "startingline" to "totallines", as used when the object was created.
+       The second is a const string of indicators for the data types of all later arguments.
+           d: integer
+           c: single char
+           f: float, double
+           s: std::string
+           Otherwise, the routine will stop.
+           Related webpage: https://en.cppreference.com/w/cpp/language/variadic_arguments
+       All the rest arguments will be outputted to the file based on the LineNumber,
+       where a comma will be inserted between any two and the end-of-line "endl" will be
+       added at the end.
+       HOWEVER, TESTS SHOW THAT ALL std::string TYPE VARIABLES MUST BE THE LAST ONES.
+
+       For example, it may be called as
+       anobject.OutputVariablesToLine(LineNumber,"ddffs",totallines,i,refractiveindex,bigradius,PickTikZColor(i));
+       Alternatively, please try "*(CppCSVTikZFileGroup::OutputLine(int LineNumber))<< aVariable <<','
+                                        << anotherVariable <<',' ... << anotherVariable << endl; "
+       */
+        bigfile.OutputVariablesToLine(i,"fffffffffffffs",
+                                     c,d,startingangle,dk,bigf,t,x,y,yprime,
+                                     tangentangle,normalangle,incidentangle,
+                                     reflectangle, PickTypicalColor(i));
+
+  /*   Here is an alternative to output the variables to the file:
        *(bigfile.OutputLine(i))<< c << ',' << d << ',' << startingangle<< ',' << dk<< ',' << bigf << ',' << t
                   << ',' << x << ',' << y << ',' << yprime<< ',' << tangentangle << ',' << normalangle << ','
                   << incidentangle << ',' << reflectangle << ',' << PickTypicalColor(i) << endl;
+                  */
     }
     }
 
