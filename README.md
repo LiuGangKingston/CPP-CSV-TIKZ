@@ -74,6 +74,7 @@ In the head file CppCSVTikZ.h, coded "Class CppCSVTikZFileGroup" can make it eas
           All the rest arguments will be outputted to the file based on the LineNumber, 
           where a comma will be inserted between any two and the end-of-line "endl" will be 
           added at the end.
+          HOWEVER, TESTS SHOW THAT ALL std::string TYPE VARIABLES MUST BE THE LAST ONES.
           For example, 
     */
        
