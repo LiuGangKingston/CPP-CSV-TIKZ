@@ -14,7 +14,7 @@ It is absolutely a good idea to combine FORTRAN or C or C++ or Python or Java or
      https://github.com/LiuGangKingston/JAVA-CSV-TIKZ.git
      https://github.com/LiuGangKingston/KOTLIN-CSV-TIKZ.git
 
-While all of them are equivalent to each other, this is the C version. 
+While all of them are equivalent to each other, this is the C++ version. 
 
 By using the template file or any example, users only need to code the part source code for their specific computing work. Our source code not only offers all the rest necessary part to build the complete code, but also provides additional facilities. For example, the function "PickTikZColor(i)" returns a TikZ color for any input integer "i", which can be used to add various colors to iteratively calculated drawings. 
 
